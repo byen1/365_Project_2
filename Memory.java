@@ -44,6 +44,10 @@ public class Memory {
     }
     
     
+    public void jump(int label) {
+        this.ip = label;
+    }
+    
     public void loadInstructions(int[] instr) {
         //load instructions from an array of instructions into memory starting at address 0
         System.arraycopy(instr, 0, memory, 0, instr.length);

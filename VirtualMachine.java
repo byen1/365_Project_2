@@ -2,8 +2,6 @@ import java.io.*;
 
 
 public class VirtualMachine extends ByteCode {
-
-    protected ByteCode bc;
     
     public VirtualMachine() {
         size = 1024;
@@ -21,8 +19,8 @@ public class VirtualMachine extends ByteCode {
     
     public void readFile(String filename) {
         
-        int[] instructions = {0};
-        /* Read in file to array of ints */
+        int[] instructions = {};
+        /* TODO: Read in file to array of ints */
         
         this.loadInstructions(instructions);
         
