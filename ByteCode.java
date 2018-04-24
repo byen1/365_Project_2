@@ -40,10 +40,12 @@ public class ByteCode extends Memory {
     }
 
 	public void XOR(){
-		int left,right;
-		left=pop();
-		right=pop();
-		push(left^right);
+		push(pop()^pop());
+
+	}
+	public void Neg(){
+		
+		push(pop()*-1);
 
 	}
 	
