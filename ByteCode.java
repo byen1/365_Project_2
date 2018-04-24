@@ -91,4 +91,40 @@ public class ByteCode extends Memory {
     /* Implement functions as ints here */
     /* Returning -1 ceases execution, generally return 0 */
     
+    /* Brandon's Functions: Sub through Or */
+    public int funcSub()
+    {
+        push(pop() - pop());
+        return 0;
+    }
+    	
+    public int funcMul()
+    {
+        push(pop() * pop());
+        return 0;	
+    }
+    
+    public int funcDiv()
+    {
+        push(pop() / pop());
+        return 0;	
+    }
+    	
+    public int funcRem()
+    {
+        push(pop() % pop());
+        return 0;	
+    }
+    	
+    public int funcAnd()
+    {
+        push(pop() & pop());
+        return 0;	
+    }
+    	
+    public int funcOr()
+    {
+        push(pop() | pop());
+        return 0;	
+    }
 }

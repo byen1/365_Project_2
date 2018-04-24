@@ -1,5 +1,5 @@
 import java.io.*;
-
+import java.util.*;
 
 public class VirtualMachine extends ByteCode {
     
@@ -18,12 +18,40 @@ public class VirtualMachine extends ByteCode {
     }
     
     public void readFile(String filename) {
-        
-        int[] instructions = {};
-        /* TODO: Read in file to array of ints */
-        
-        this.loadInstructions(instructions);
-        
+        DataInputStream r;
+		int fromFile, fileHeaderCheck;
+        ArrayList <Integer> instrs = new ArrayList <Integer>();
+		
+		try{
+			r = new DataInputStream(new FileInputStream(filename));
+		}catch(IOException ex){
+			System.err.println("Unable to open file " + filename);
+			return;
+		}
+		
+		fileHeaderCheck = 1;
+
+		do{
+			try{
+				fromFile = r.readInt();
+			}catch(IOException ex){
+				break;
+			}
+
+			if((fileHeaderCheck == 1) && (fromFile != 0xfeedbeef)){
+				System.err.println("Bin file does not start with magic header.");
+				return;
+			}else if(fileHeaderCheck == 0){
+				instrs.add(swap(fromFile));
+			}
+			
+			fileHeaderCheck = 0;
+		}while(true);
+
+		try{ r.close(); } catch(IOException ex){}
+		
+		int []instructions = instrs.stream().mapToInt(Integer::intValue).toArray();
+        this.loadInstructions(instructions);        
     }
     
     public void jump(int label) {
@@ -48,4 +76,14 @@ public class VirtualMachine extends ByteCode {
         return this.exitCode;
         
     }
+
+	public int swap (int value){
+		int b1 = (value >>  0) & 0xff;
+		int b2 = (value >>  8) & 0xff;
+		int b3 = (value >> 16) & 0xff;
+		int b4 = (value >> 24) & 0xff;
+
+		return b1 << 24 | b2 << 16 | b3 << 8 | b4 << 0;
+	}
+
 }
