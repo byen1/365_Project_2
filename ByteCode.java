@@ -19,7 +19,7 @@ public class ByteCode extends Memory {
         int instr = this.getInstruction();
         this.ip++;
         
-        int cmd = 0xff000000 & instr; // cmd = first 8 bits
+        int cmd = 0xff000000 & instr>>24; // cmd = first 8 bits
         int arg = 0x00ffffff & instr; // arg = last 24 bits
         
         switch (cmd) {
@@ -109,27 +109,54 @@ public class ByteCode extends Memory {
 
 	}
 	public int funcIF1(int arg,int cmd){
-		int condition;
+		int condition,left,right;
+
+		left=pop();
+		right=pop();
 		condition=cmd;
 		condition&=7;
 
 		if(condition==0){
-			funcGoto(arg);
+			if(left==right){
+				funcGoto(arg);
+			}else{
+				return -1;
+			}
 			
 		}else if(condition==1){
-			funcGoto(arg);
+			if(left!=right){
+				funcGoto(arg);
+			}else{
+				return -1;
+			}
 
 		}else if(condition==2){
-			funcGoto(arg);
+			if(left<right){
+				funcGoto(arg);
+			}else{
+				return -1;
+			}
 
 		}else if(condition==3){
-			funcGoto(arg);
+			if(left>right){
+				funcGoto(arg);
+			}else{
+				return -1;
+			}
 
 		}else if(condition==4){
-			funcGoto(arg);
+			if(left==right){
+				funcGoto(arg);
+			}else{
+				return -1;
+			}
 
 		}else if(condition==5){
-			funcGoto(arg);
+			if(left==right){
+				funcGoto(arg);
+			}else{
+				return -1;
+			}
 		}
 		return 0;
 	}
