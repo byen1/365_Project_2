@@ -39,7 +39,6 @@ public class ByteCode extends Memory {
         
     }
 
-<<<<<<< HEAD
 	public int funcSwap(){
 		return 0;
 	}
