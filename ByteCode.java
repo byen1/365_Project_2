@@ -65,21 +65,35 @@ public class ByteCode extends Memory {
 		return 0;
 	}
 	public int funcIF1(){
-		int left, right;
-		left=pop();
-		right=pop();
+		int condition,label;
+		label=this.ip;
+		condition=this.ip>>24;
+		condition=(1<<4)-1;
 
-		if(left==right){
 
-		}else if(left!=right){
+		if(condition==0){
+			label=(1<<24)-1;
+			jump(label);
+			
+		}else if(condition==1){
+			label=(1<<24)-1;
+			jump(label);
 
-		}else if(left<right){
+		}else if(condition==2){
+			label=(1<<24)-1;
+			jump(label);
 
-		}else if(left>right){
+		}else if(condition==3){
+			label=(1<<24)-1;
+			jump(label);
 
-		}else if(left<=right){
+		}else if(condition==4){
+			label=(1<<24)-1;
+			jump(label);
 
-		}else if(left>=right){
+		}else if(condition==5){
+			label=(1<<24)-1;
+			jump(label);
 
 		}
 		return 0;
