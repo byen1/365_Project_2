@@ -40,10 +40,32 @@ public class ByteCode extends Memory {
     }
 
 	public int funcSwap(){
+		int val1 = 0, val2 = 0, successfulPops = 2;
+		try{
+			val1 = funcPop(); //Gotta make sure that 3 cases are covered and that doing a pop at the end doesnt explode...
+		}catch(Exception ex){
+			successfulPops--;
+		}
+
+		try{
+			val2 = funcPop();
+		}catch(Exception ex){
+			successfulPops--;
+		}
+
+		if(successfulPops == 2){
+			push(val1);
+			push(val2);
+		}else if(successfulPops == 1){
+			push(0);
+		}else{}
+		
 		return 0;
 	}
 
 	public int funcInpt(){
+		int toPush = Integer.parseInt(System.console().readLine()); //Might be error prone...
+		push(toPush);
 		return 0;
 	}
 
@@ -52,16 +74,16 @@ public class ByteCode extends Memory {
 	}
 
 	public int funcPop(){
-		return 0;
+		return pop();
 	}
 
 	public int funcAdd(){
+		push(pop() + pop());
 		return 0;
 	}
 
 
 //End of functions Charlie and/or aday implemented
-
 
 	public int funcXOR(){
 
