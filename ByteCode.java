@@ -48,6 +48,10 @@ public class ByteCode extends Memory {
 		push(pop()*-1);
 
 	}
+	public void Not(){
+
+		push (~pop());
+	}
 	
 
     
