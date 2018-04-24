@@ -39,6 +39,7 @@ public class ByteCode extends Memory {
         
     }
 
+<<<<<<< HEAD
 	public int funcSwap(){
 		return 0;
 	}
@@ -64,18 +65,52 @@ public class ByteCode extends Memory {
 
 
 	public void XOR(){
+	public int funcXOR(){
+
 		push(pop()^pop());
+		return 0;
 
 	}
-	public void Neg(){
+	public int funcNeg(){
 		
 		push(pop()*-1);
-
+		return 0;
 	}
-	public void Not(){
+	public int funcNot(){
 
 		push (~pop());
+		return 0;
+
 	}
+	public int funcGoto(){
+		int label;
+		
+		label=this.ip;
+		label=(1<<24)-1;
+		jump(label);
+		return 0;
+	}
+	public int funcIF1(){
+		int left, right;
+		left=pop();
+		right=pop();
+
+		if(left==right){
+
+		}else if(left!=right){
+
+		}else if(left<right){
+
+		}else if(left>right){
+
+		}else if(left<=right){
+
+		}else if(left>=right){
+
+		}
+		return 0;
+	}
+
 	
 
     
