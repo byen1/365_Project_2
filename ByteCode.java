@@ -102,31 +102,34 @@ public class ByteCode extends Memory {
 		return 0;
 
 	}
-	public int funcGoto(){
-		int label;
+	public int funcGoto(int arg){
 		
-		label=this.ip;
-		label=(1<<24)-1;
-		jump(label);
+		jump(arg);
 		return 0;
+
 	}
-	public int funcIF1(){
-		int left, right;
-		left=pop();
-		right=pop();
+	public int funcIF1(int arg,int cmd){
+		int condition;
+		condition=cmd;
+		condition&=7;
 
-		if(left==right){
+		if(condition==0){
+			funcGoto(arg);
+			
+		}else if(condition==1){
+			funcGoto(arg);
 
-		}else if(left!=right){
+		}else if(condition==2){
+			funcGoto(arg);
 
-		}else if(left<right){
+		}else if(condition==3){
+			funcGoto(arg);
 
-		}else if(left>right){
+		}else if(condition==4){
+			funcGoto(arg);
 
-		}else if(left<=right){
-
-		}else if(left>=right){
-
+		}else if(condition==5){
+			funcGoto(arg);
 		}
 		return 0;
 	}
