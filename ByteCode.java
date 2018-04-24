@@ -98,42 +98,42 @@ public class ByteCode extends Memory {
 			if(left==right){
 				funcGoto(arg);
 			}else{
-				return -1;
+				return 0;
 			}
 			
 		}else if(condition==1){
 			if(left!=right){
 				funcGoto(arg);
 			}else{
-				return -1;
+				return 0;
 			}
 
 		}else if(condition==2){
 			if(left<right){
 				funcGoto(arg);
 			}else{
-				return -1;
+				return 0;
 			}
 
 		}else if(condition==3){
 			if(left>right){
 				funcGoto(arg);
 			}else{
-				return -1;
+				return 0;
 			}
 
 		}else if(condition==4){
-			if(left==right){
+			if(left<=right){
 				funcGoto(arg);
 			}else{
-				return -1;
+				return 0;
 			}
 
 		}else if(condition==5){
-			if(left==right){
+			if(left>=right){
 				funcGoto(arg);
 			}else{
-				return -1;
+				return 0;
 			}
 		}
 		return 0;
