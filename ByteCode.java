@@ -61,10 +61,7 @@ public class ByteCode extends Memory {
     /* Brandon's Functions: Sub through Or */
     public int funcSub()
     {
-        int left, right;
-        left = pop();
-        right = pop();
-        push(right - left);
+        push(pop() - pop());
         return 0;
     }
     	
