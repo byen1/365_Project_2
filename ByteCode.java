@@ -63,7 +63,6 @@ public class ByteCode extends Memory {
 //End of functions Charlie and/or aday implemented
 
 
-	public void XOR(){
 	public int funcXOR(){
 
 		push(pop()^pop());
@@ -81,45 +80,34 @@ public class ByteCode extends Memory {
 		return 0;
 
 	}
-	public int funcGoto(){
-		int label;
+	public int funcGoto(int arg){
 		
-		label=this.ip;
-		label=(1<<24)-1;
-		jump(label);
+		jump(arg);
 		return 0;
-	}
-	public int funcIF1(){
-		int condition,label;
-		label=this.ip;
-		condition=this.ip>>24;
-		condition=(1<<4)-1;
 
+	}
+	public int funcIF1(int arg,int cmd){
+		int condition;
+		condition=cmd;
+		condition&=7;
 
 		if(condition==0){
-			label=(1<<24)-1;
-			jump(label);
+			funcGoto(arg);
 			
 		}else if(condition==1){
-			label=(1<<24)-1;
-			jump(label);
+			funcGoto(arg);
 
 		}else if(condition==2){
-			label=(1<<24)-1;
-			jump(label);
+			funcGoto(arg);
 
 		}else if(condition==3){
-			label=(1<<24)-1;
-			jump(label);
+			funcGoto(arg);
 
 		}else if(condition==4){
-			label=(1<<24)-1;
-			jump(label);
+			funcGoto(arg);
 
 		}else if(condition==5){
-			label=(1<<24)-1;
-			jump(label);
-
+			funcGoto(arg);
 		}
 		return 0;
 	}
