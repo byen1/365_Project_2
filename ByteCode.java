@@ -38,18 +38,68 @@ public class ByteCode extends Memory {
         return -1;
         
     }
-
-	public void XOR(){
-		int left,right;
-		left=pop();
-		right=pop();
-		push(left^right);
-
-	}
-	
-
     
     /* Implement functions as ints here */
     /* Returning -1 ceases execution, generally return 0 */
     
+    /* Brandon's Functions: Sub through Or */
+    public int funcSub()
+    {
+        int num1, num2;
+        	
+        num1 = pop();
+        num2 = pop();
+        push(num1 + num2);
+        return 0;
+    }
+    	
+    public int funcMul()
+    {
+        int num1, num2;
+        		
+        num1 = pop();
+        num2 = pop();
+        push(num1 * num2);
+        return 0;	
+    }
+    
+    public int funcDiv()
+    {
+        int num1, num2;
+        		
+        num1 = pop();
+        num2 = pop();
+        push(num1 / num2);
+        return 0;	
+    }
+    	
+    public int funcRem()
+    {
+        int num1, num2;
+        		
+		num1 = pop();
+        num2 = pop();
+        push(num1 % num2);
+        return 0;	
+    }
+    	
+    public int funcAnd()
+    {
+        int num1, num2;
+        		
+        num1 = pop();
+        num2 = pop();
+        push(num1 & num2);
+        return 0;	
+    }
+    	
+    public int funcOr()
+    {
+        int num1, num2;
+        	
+        num1 = pop();
+        num2 = pop();
+        push(num1 | num2);
+        return 0;	
+    }
 }
