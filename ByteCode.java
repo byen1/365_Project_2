@@ -29,7 +29,7 @@ public class ByteCode extends Memory {
                 return 0;
         }
     }
-    
+//Functions that Charlie and/or aday implemented    
     public int funcExit(int arg) {
         
         int mask = 0xff;
@@ -38,6 +38,30 @@ public class ByteCode extends Memory {
         return -1;
         
     }
+
+	public int funcSwap(){
+		return 0;
+	}
+
+	public int funcInpt(){
+		return 0;
+	}
+
+	public int funcNop(){
+		return 0;
+	}
+
+	public int funcPop(){
+		return 0;
+	}
+
+	public int funcAdd(){
+		return 0;
+	}
+
+
+//End of functions Charlie and/or aday implemented
+
 
 	public void XOR(){
 		push(pop()^pop());
@@ -94,4 +118,5 @@ public class ByteCode extends Memory {
         push(pop() | pop());
         return 0;	
     }
+	
 }
