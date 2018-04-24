@@ -60,8 +60,7 @@ public class ByteCode extends Memory {
     
     /* Brandon's Functions: Sub through Or */
     public int funcSub()
-    {
-        	
+    {	
         push(pop() - pop());
         return 0;
     }
