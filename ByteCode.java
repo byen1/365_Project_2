@@ -38,6 +38,16 @@ public class ByteCode extends Memory {
         return -1;
         
     }
+
+	public void XOR(){
+		int left,right;
+		left=pop();
+		right=pop();
+		push(left^right);
+
+	}
+	
+
     
     /* Implement functions as ints here */
     /* Returning -1 ceases execution, generally return 0 */
