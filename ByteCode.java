@@ -22,7 +22,7 @@ public class ByteCode extends Memory {
         int arg = ((0x00ffffff & instr) << 8) >> 8; // arg = last 24 bits, signed
         
         Main.debugPrint("Reading instruction " + this.ip + ": 0x" + Integer.toHexString(cmd) + "(" + cmd + ") " + arg);
-        
+        //Calls the current command
         switch (cmd) {
             case 0:
                 Main.debugPrint("Exiting");
@@ -94,6 +94,7 @@ public class ByteCode extends Memory {
                 return funcPrint(arg);
             case 224:
                 return funcDump(arg);
+			//In some cases, only the most significant four bits determine the command. Those are handled here.
             default:
                 cmd >>= 4;
                 if(cmd == 7) {
@@ -121,9 +122,7 @@ public class ByteCode extends Memory {
     }
 	//Swaps the topmost stack value with the penultimate value
 	public int funcSwap(){
-		if(this.sp ==1023){
-			return 0;
-		}else{
+		if(this.sp != this.size - 1){
 			int temp = this.memory[this.sp];
 			this.memory[this.sp] = this.memory[this.sp + 1];
 			this.memory[this.sp + 1] = temp;
@@ -131,20 +130,24 @@ public class ByteCode extends Memory {
 		return 0;
 	}
 
+	//Takes in an input number from the user and pushes it onto stack
 	public int funcInpt(){
 		int toPush = Integer.parseInt(System.console().readLine()); //Might be error prone...
 		push(toPush);
 		return 0;
 	}
 
+	//Doesn't do anything
 	public int funcNop(){
 		return 0;
 	}
 
+	//Calls member pop() function for our memory class
 	public int funcPop(){
 		return pop();
 	}
 
+	//Pops two topmost stack values, adds them, and then pushes them onto the stack
 	public int funcAdd(){
 		push(pop() + pop());
 		return 0;
@@ -252,36 +255,38 @@ public class ByteCode extends Memory {
     /* Returning -1 ceases execution, generally return 0 */
     
     /* Brandon's Functions: Sub through Or */
-    public int funcSub()
+	/* All of these are implemented by popping the first two values off of the stack, performing the corresponding operations on them, then pushing the result */
+    //Subtraction operation
+	public int funcSub()
     {
         push(pop() - pop());
         return 0;
     }
-    	
+    //Multiplication operation
     public int funcMul()
     {
         push(pop() * pop());
         return 0;	
     }
-    
+    //Division operation
     public int funcDiv()
     {
         push(pop() / pop());
         return 0;	
     }
-    	
+    //Remainder operation
     public int funcRem()
     {
         push(pop() % pop());
         return 0;	
     }
-    	
+    //Bitwise And operation
     public int funcAnd()
     {
         push(pop() & pop());
         return 0;	
     }
-    	
+    //Bitwise Or operation
     public int funcOr()
     {
         push(pop() | pop());
