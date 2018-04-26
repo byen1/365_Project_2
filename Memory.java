@@ -45,7 +45,7 @@ public class Memory {
     
     
     public void jump(int label) {
-        this.ip = label;
+        this.ip = (label);
     }
     
     public void loadInstructions(int[] instr) {
