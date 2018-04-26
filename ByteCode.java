@@ -204,4 +204,98 @@ public class ByteCode extends Memory {
         return 0;	
     }
 	
+    /* aTeepe's functions */
+    public int funcIfEz(int arg)
+    {
+        int value = peek(0);
+       
+        if (value == 0)
+        {
+            this.ip = arg;
+        }
+       
+        return 0;
+    }
+    public int funcIfNz(int arg)
+    {
+        int value = peek(0);
+ 
+        if (value != 0)
+        {
+            this.ip = arg;
+        }
+ 
+        return 0;
+    }
+    public int funcIfMi(int arg)
+    {
+        int value = peek(0);
+ 
+        if (value < 0)
+        {
+            this.ip = arg;
+        }
+ 
+        return 0;
+    }
+    public int funcIfPl(int arg)
+    {
+        int value = peek(0);
+ 
+        if (value >= 0)
+        {
+            this.ip = arg;
+        }
+ 
+        return 0;
+    }
+   
+    public int funcDup(int arg)
+    {
+        if (arg % 4 != 0)
+        {
+            throw new IllegalArgumentException();
+        }
+       
+        int value = peek(arg / 4);
+       
+        push(value);
+       
+        return 0;
+    }
+   
+    public int funcPrint(int arg)
+    {
+        if (arg != 0)
+        {
+            throw new IllegalArgumentException();
+        }
+       
+        System.out.println(peek(0));
+       
+        return 0;
+    }
+   
+    public int funcDump(int arg)
+    {
+        if (arg != 0)
+        {
+            throw new IllegalArgumentException();
+        }
+       
+        for (int i = this.size-1; i >= this.sp; i--)
+        {
+            System.out.println(memory[i]);
+        }
+       
+        return 0;
+    }
+   
+    public int funcPush(int arg)
+    {
+        this.push(arg);
+       
+        return 0;
+    }
+	
 }
