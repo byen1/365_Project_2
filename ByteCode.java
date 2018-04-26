@@ -26,8 +26,8 @@ public class ByteCode extends Memory {
                 Main.debugPrint("Inputting");
                 return funcInpt();
             case 3:
-                Main.debugPrint("Nope");
-                    return funcNop();
+                Main.debugPrint("Nop");
+                return funcNop();
             case 16:
                 Main.debugPrint("Popping");
                 return funcPop();
@@ -189,12 +189,11 @@ public class ByteCode extends Memory {
 	}
 	public int funcIF1(int arg,int cmd){
 		int condition,left,right;
-
-		left=pop();
-		right=pop();
+		left=peek(0);
+		right=peek(1);
 		condition=cmd;
-		condition&=7;
-
+		condition&=15;
+        System.out.println("Condition " + condition);
 		if(condition==0){
 			if(left==right){
 				funcGoto(arg);
@@ -331,12 +330,7 @@ public class ByteCode extends Memory {
    
     public int funcDup(int arg)
     {
-        if (arg % 4 != 0)
-        {
-            throw new IllegalArgumentException();
-        }
-       
-        int value = peek(arg / 4);
+        int value = peek(arg);
        
         push(value);
        
