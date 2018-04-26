@@ -21,7 +21,8 @@ public class ByteCode extends Memory {
         
         int cmd = 0xff000000 & instr>>24; // cmd = first 8 bits
         int arg = 0x00ffffff & instr; // arg = last 24 bits
-        
+		int arg28 = 0x0fffffff & instr;
+
         switch (cmd) {
             case 0:
                 return funcExit(arg);
@@ -41,8 +42,6 @@ public class ByteCode extends Memory {
 				return funcNeg();
 			case 49:
 				return funcNot();
-			case 112:
-				return funcGoto(cmd);
 			case 128:
 				return funcIF1(arg,cmd);
 			case 129:
@@ -56,7 +55,15 @@ public class ByteCode extends Memory {
 			case 133:
 				return funcIF1(arg,cmd);
 			default:
-                return 0;
+                cmd >>= 4;
+				if(cmd == 7)
+					return funcGoto(arg28);
+				else if(cmd == 12)
+					return funcDup(arg28 >> 2);
+				else if(cmd == 15)
+					return funcPush(arg28);
+				else 
+					return 0;
         }
     }
 //Functions that Charlie and/or aday implemented    
