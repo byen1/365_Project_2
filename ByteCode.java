@@ -22,7 +22,7 @@ public class ByteCode extends Memory {
         int arg = ((0x00ffffff & instr) << 8) >> 8; // arg = last 24 bits, signed
         
         Main.debugPrint("Reading instruction " + this.ip + ": 0x" + Integer.toHexString(cmd) + "(" + cmd + ") " + arg);
-        
+        //Calls the current command
         switch (cmd) {
             case 0:
                 Main.debugPrint("Exiting");
@@ -94,6 +94,7 @@ public class ByteCode extends Memory {
                 return funcPrint(arg);
             case 224:
                 return funcDump(arg);
+			//In some cases, only the most significant four bits determine the command. Those are handled here.
             default:
                 cmd >>= 4;
                 if(cmd == 7) {
@@ -252,36 +253,38 @@ public class ByteCode extends Memory {
     /* Returning -1 ceases execution, generally return 0 */
     
     /* Brandon's Functions: Sub through Or */
-    public int funcSub()
+	/* All of these are implemented by popping the first two values off of the stack, performing the corresponding operations on them, then pushing the result */
+    //Subtraction operation
+	public int funcSub()
     {
         push(pop() - pop());
         return 0;
     }
-    	
+    //Multiplication operation
     public int funcMul()
     {
         push(pop() * pop());
         return 0;	
     }
-    
+    //Division operation
     public int funcDiv()
     {
         push(pop() / pop());
         return 0;	
     }
-    	
+    //Remainder operation
     public int funcRem()
     {
         push(pop() % pop());
         return 0;	
     }
-    	
+    //Bitwise And operation
     public int funcAnd()
     {
         push(pop() & pop());
         return 0;	
     }
-    	
+    //Bitwise Or operation
     public int funcOr()
     {
         push(pop() | pop());
