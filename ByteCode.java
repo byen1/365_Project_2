@@ -166,25 +166,35 @@ public class ByteCode extends Memory {
 
 	}
 	/*
-		
+		pops off stack multiples it by 1 then push's the value		
 	*/
 	public int funcNeg(){
 		
 		push(pop()*-1);
 		return 0;
 	}
+	/*
+		pops the value off stack nots it and pushes it back on the stack
+	*/
 	public int funcNot(){
 
 		push (~pop());
 		return 0;
 
 	}
+	/*
+		calls jump and goes to the label passed to it
+	*/
 	public int funcGoto(int arg){
 		
 		jump(arg);
 		return 0;
 
 	}
+	/*
+		if function that check the condition if its either 0,1,2,3,4,5 and then checks if its true
+		if yes it calls goto on the label if its false it returns
+	*/
 	public int funcIF1(int arg,int cmd){
 		int condition,left,right;
 		left=peek(0);
@@ -281,6 +291,9 @@ public class ByteCode extends Memory {
     }
     	
     /* aTeepe's functions */
+	/*
+		if the value is 0 jump to the label
+	*/
     public int funcIfEz(int arg)
     {
         int value = peek(0);
@@ -292,6 +305,9 @@ public class ByteCode extends Memory {
        
         return 0;
     }
+	/*
+		if value is not 0 jump to label
+	*/
     public int funcIfNz(int arg)
     {
         int value = peek(0);
@@ -303,6 +319,9 @@ public class ByteCode extends Memory {
  
         return 0;
     }
+	/*
+		if value is less then 0 jump to label
+	*/
     public int funcIfMi(int arg)
     {
         int value = peek(0);
@@ -314,6 +333,9 @@ public class ByteCode extends Memory {
  
         return 0;
     }
+	/*
+		if value is great then or equal to 0 jump to label
+	*/
     public int funcIfPl(int arg)
     {
         int value = peek(0);
@@ -326,6 +348,9 @@ public class ByteCode extends Memory {
         return 0;
     }
    
+	/*
+		duplicates last value on stack and pushes it
+	*/
     public int funcDup(int arg)
     {
         int value = peek(arg);
@@ -334,7 +359,9 @@ public class ByteCode extends Memory {
        
         return 0;
     }
-   
+	/*
+		prints the last value on the stack
+	*/
     public int funcPrint(int arg)
     {
         if (arg != 0)
@@ -346,7 +373,9 @@ public class ByteCode extends Memory {
        
         return 0;
     }
-   
+   /*
+	prints everything on the stack
+   */
     public int funcDump(int arg)
     {
         if (arg != 0)
@@ -361,7 +390,9 @@ public class ByteCode extends Memory {
        
         return 0;
     }
-   
+   /*
+		pushes the value given to it
+   */
     public int funcPush(int arg)
     {
         this.push(arg);
