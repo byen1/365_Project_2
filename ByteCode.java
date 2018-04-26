@@ -7,7 +7,6 @@ public class ByteCode extends Memory {
         
         /* Get instruction from memory */
         int instr = this.getInstruction();
-        //this.ip++;
         
         int cmd = (0xff000000 & instr) >>> 24; // cmd = first 8 bits
         int arg28 = (instr << 4) >> 4; // arg28 = last 28 bits, left then right shifted to preserve sign
@@ -193,7 +192,7 @@ public class ByteCode extends Memory {
 		right=peek(1);
 		condition=cmd;
 		condition&=15;
-        System.out.println("Condition " + condition);
+		
 		if(condition==0){
 			if(left==right){
 				funcGoto(arg);
