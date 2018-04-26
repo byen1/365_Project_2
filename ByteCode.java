@@ -121,9 +121,7 @@ public class ByteCode extends Memory {
     }
 	//Swaps the topmost stack value with the penultimate value
 	public int funcSwap(){
-		if(this.sp ==1023){
-			return 0;
-		}else{
+		if(this.sp != this.size - 1){
 			int temp = this.memory[this.sp];
 			this.memory[this.sp] = this.memory[this.sp + 1];
 			this.memory[this.sp + 1] = temp;
@@ -131,20 +129,24 @@ public class ByteCode extends Memory {
 		return 0;
 	}
 
+	//Takes in an input number from the user and pushes it onto stack
 	public int funcInpt(){
 		int toPush = Integer.parseInt(System.console().readLine()); //Might be error prone...
 		push(toPush);
 		return 0;
 	}
 
+	//Doesn't do anything
 	public int funcNop(){
 		return 0;
 	}
 
+	//Calls member pop() function for our memory class
 	public int funcPop(){
 		return pop();
 	}
 
+	//Pops two topmost stack values, adds them, and then pushes them onto the stack
 	public int funcAdd(){
 		push(pop() + pop());
 		return 0;
