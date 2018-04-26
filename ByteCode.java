@@ -111,8 +111,8 @@ public class ByteCode extends Memory {
     }
 
 	public int funcSwap(){
-		int val1 = 0, val2 = 0, successfulPops = 2;
-		try{
+		//int val1 = 0, val2 = 0, successfulPops = 2;
+/*		try{
 			val1 = funcPop(); //Gotta make sure that 3 cases are covered and that doing a pop at the end doesnt explode...
 		}catch(Exception ex){
 			successfulPops--;
@@ -130,7 +130,19 @@ public class ByteCode extends Memory {
 		}else if(successfulPops == 1){
 			push(0);
 		}else{}
-		
+	*/
+		if(this.sp ==1023){
+			return 0;
+		}else if(this.sp ==1022){
+			//funcPush(0);
+			int temp = this.memory[this.sp];
+			this.memory[this.sp] = this.memory[this.sp + 1];
+			this.memory[this.sp + 1] = temp;
+		}else{
+			int temp = this.memory[this.sp];
+			this.memory[this.sp] = this.memory[this.sp + 1];
+			this.memory[this.sp + 1] = temp;
+		}
 		return 0;
 	}
 
@@ -343,7 +355,7 @@ public class ByteCode extends Memory {
             throw new IllegalArgumentException();
         }
        
-        System.out.println(peek(0));
+        System.out.println("Vmach print: " + peek(0));
        
         return 0;
     }
