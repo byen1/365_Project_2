@@ -1,20 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Zren
- */
 public class Main {
     
+    public static boolean verbose = false;
+    
     public static void main(String[] args) {
-        if(args.length != 1)
+        if(args.length < 1)
         {
             System.out.println("Usage: java -jar Project2.jar BYTECODE_FILE");
             return;
+        }
+        if (args.length == 2) {
+            if (args[1].equals("-v")) verbose = true;
         }
         VirtualMachine VM = new VirtualMachine();
         
@@ -24,6 +20,10 @@ public class Main {
         if (exit != -1) System.out.println("Exited with code " + exit);
         //can't return exit codes to operating system in java, so this should do
         
+    }
+    
+    public static void debugPrint(String msg) {
+        if (verbose) System.err.println(msg);
     }
     
 }

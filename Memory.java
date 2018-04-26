@@ -1,13 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Zren
- */
 public class Memory {
     
     protected int memory[];
@@ -31,8 +22,7 @@ public class Memory {
     
     public int pop() {
         if (sp + 1 >= size) throw new IndexOutOfBoundsException();
-        sp++;
-        return memory[sp-1];
+        return memory[sp++];
     }
     
     public void push(int val) {
@@ -44,8 +34,8 @@ public class Memory {
     }
     
     
-    public void jump(int label) {
-        this.ip = (label);
+    public void jump(int offset) {
+        this.ip += (offset / 4);
     }
     
     public void loadInstructions(int[] instr) {

@@ -1,13 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Zren
- */
 public class ByteCode extends Memory {
     
     protected int exitCode = 0;
@@ -19,75 +9,93 @@ public class ByteCode extends Memory {
         int instr = this.getInstruction();
         this.ip++;
         
-        int cmd = 0xff000000 & instr>>24; // cmd = first 8 bits
-        int arg = 0x00ffffff & instr; // arg = last 24 bits
-		int arg28 = 0x0fffffff & instr;
-
+        int cmd = (0xff000000 & instr) >>> 24; // cmd = first 8 bits
+        int arg28 = (instr << 4) >> 4; // arg28 = last 28 bits, left then right shifted to preserve sign
+        int arg = arg28 >> 4; // arg = last 24 bits, signed
+        
+        Main.debugPrint("Reading instruction 0x" + Integer.toHexString(cmd) + " " + Integer.toHexString(arg));
+        
         switch (cmd) {
             case 0:
+                Main.debugPrint("Exiting");
                 return funcExit(arg);
-			case 1:
-				return funcSwap();
-			case 2:
-				return funcInpt();
-			case 3:
-				return funcNop();
-			case 16:
-				return funcPop();
-			case 32:
-				return funcAdd();
-			case 33:
-				return funcSub();
-			case 34:
-				return funcMul();
-			case 35:
-				return funcDiv();
-			case 36:
-				return funcRem();
-			case 37:
-				return funcAnd();
-			case 38:
-				return funcOr();
-			case 39:
-				return funcXOR();
-			case 48:
-				return funcNeg();
-			case 49:
-				return funcNot();
-			case 128:
-				return funcIF1(arg,cmd);
-			case 129:
-				return funcIF1(arg,cmd);
-			case 130:
-				return funcIF1(arg,cmd);
-			case 131:
-				return funcIF1(arg,cmd);
-			case 132:
-				return funcIF1(arg,cmd);
-			case 133:
-				return funcIF1(arg,cmd);
-			case 144:
-				return funcIfEz(arg);
-			case 145:
-				return funcIfNz(arg);
-			case 146:
-				return funcIfMi(arg);
-			case 147:
-				return funcIfPl(arg);
-			case 208:
-				return funcPrint(arg);
-			case 224:
-				return funcDump(arg);
-			default:
+            case 1:
+                Main.debugPrint("Swappimg");
+                return funcSwap();
+            case 2:
+                Main.debugPrint("Inputting");
+                return funcInpt();
+            case 3:
+                Main.debugPrint("Nope");
+                    return funcNop();
+            case 16:
+                Main.debugPrint("Popping");
+                return funcPop();
+            case 32:
+                Main.debugPrint("Adding");
+                return funcAdd();
+            case 33:
+                Main.debugPrint("Subtracting");
+                return funcSub();
+            case 34:
+                Main.debugPrint("Multiplying");
+                return funcMul();
+            case 35:
+                Main.debugPrint("Dividing");
+                return funcDiv();
+            case 36:
+                Main.debugPrint("Remainder");
+                return funcRem();
+            case 37:
+                Main.debugPrint("Anding");
+                return funcAnd();
+            case 38:
+                Main.debugPrint("Oring");
+                return funcOr();
+            case 39:
+                Main.debugPrint("XORing");
+                return funcXOR();
+            case 48:
+                Main.debugPrint("Negating");
+                return funcNeg();
+            case 49:
+                Main.debugPrint("Not-ing");
+                return funcNot();
+            case 128:
+                Main.debugPrint("If1");
+                return funcIF1(arg,cmd);
+            case 129:
+                return funcIF1(arg,cmd);
+            case 130:
+                return funcIF1(arg,cmd);
+            case 131:
+                return funcIF1(arg,cmd);
+            case 132:
+                return funcIF1(arg,cmd);
+            case 133:
+                return funcIF1(arg,cmd);
+            case 144:
+                return funcIfEz(arg);
+            case 145:
+                return funcIfNz(arg);
+            case 146:
+                return funcIfMi(arg);
+            case 147:
+                return funcIfPl(arg);
+            case 208:
+                return funcPrint(arg);
+            case 224:
+                return funcDump(arg);
+            default:
                 cmd >>= 4;
-				if(cmd == 7)
-					return funcGoto(arg28);
-				else if(cmd == 12)
-					return funcDup(arg28 >> 2);
-				else if(cmd == 15)
-					return funcPush(arg28);
-				else 
-					return 0;
+                if(cmd == 7)
+                    return funcGoto(arg28);
+                else if(cmd == 12)
+                    return funcDup(arg28 >> 2);
+                else if(cmd == 15)
+                    return funcPush(arg28);
+                else 
+                    return 0;
         }
     }
 //Functions that Charlie and/or aday implemented    
@@ -279,7 +287,7 @@ public class ByteCode extends Memory {
        
         if (value == 0)
         {
-            funcGoto(arg);
+            jump(arg);
         }
        
         return 0;
@@ -290,7 +298,7 @@ public class ByteCode extends Memory {
  
         if (value != 0)
         {
-            funcGoto(arg);
+            jump(arg);
         }
  
         return 0;
@@ -301,7 +309,7 @@ public class ByteCode extends Memory {
         
         if (value < 0)
         {
-            funcGoto(arg);
+            jump(arg);
         }
  
         return 0;
@@ -312,7 +320,7 @@ public class ByteCode extends Memory {
  
         if (value >= 0)
         {
-            funcGoto(arg);
+            jump(arg);
         }
  
         return 0;
