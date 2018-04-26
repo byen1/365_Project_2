@@ -54,9 +54,6 @@ public class VirtualMachine extends ByteCode {
         this.loadInstructions(instructions);        
     }
     
-    public void jump(int label) {
-        this.ip = label;
-    }
     
     public int run() {
         
@@ -64,15 +61,20 @@ public class VirtualMachine extends ByteCode {
         try {
             return execLoop();
         } catch (Exception e) {
-            System.err.println("Erroroneous instruction, terminating program: " + e.getMessage());
+            System.err.println("Erroroneous instruction, terminating program: " + e.toString());
             return -1;
         }
         
     }
     
     public int execLoop() {
-        
-        while(interpret() != -1);
+        int ipp = this.ip;
+        while(interpret() != -1) {
+            if (ipp == this.ip) { 
+                this.ip++;
+            }
+            ipp = this.ip;
+        }
         return this.exitCode;
         
     }

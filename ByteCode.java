@@ -7,20 +7,20 @@ public class ByteCode extends Memory {
         
         /* Get instruction from memory */
         int instr = this.getInstruction();
-        this.ip++;
+        //this.ip++;
         
         int cmd = (0xff000000 & instr) >>> 24; // cmd = first 8 bits
         int arg28 = (instr << 4) >> 4; // arg28 = last 28 bits, left then right shifted to preserve sign
-        int arg = arg28 >> 4; // arg = last 24 bits, signed
+        int arg = ((0x00ffffff & instr) << 8) >> 8; // arg = last 24 bits, signed
         
-        Main.debugPrint("Reading instruction 0x" + Integer.toHexString(cmd) + " " + Integer.toHexString(arg));
+        Main.debugPrint("Reading instruction " + this.ip + ": 0x" + Integer.toHexString(cmd) + "(" + cmd + ") " + arg);
         
         switch (cmd) {
             case 0:
                 Main.debugPrint("Exiting");
                 return funcExit(arg);
             case 1:
-                Main.debugPrint("Swappimg");
+                Main.debugPrint("Swapping");
                 return funcSwap();
             case 2:
                 Main.debugPrint("Inputting");
@@ -88,13 +88,16 @@ public class ByteCode extends Memory {
                 return funcDump(arg);
             default:
                 cmd >>= 4;
-                if(cmd == 7)
+                if(cmd == 7) {
+                    Main.debugPrint("Goto");
                     return funcGoto(arg28);
-                else if(cmd == 12)
+                } else if(cmd == 12) {
+                    Main.debugPrint("Dup");
                     return funcDup(arg28 >> 2);
-                else if(cmd == 15)
+                }else if(cmd == 15) {
+                    Main.debugPrint("Pushing");
                     return funcPush(arg28);
-                else 
+                } else 
                     return 0;
         }
     }
