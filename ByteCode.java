@@ -203,7 +203,7 @@ public class ByteCode extends Memory {
         push(pop() | pop());
         return 0;	
     }
-	
+    	
     /* aTeepe's functions */
     public int funcIfEz(int arg)
     {
@@ -230,7 +230,7 @@ public class ByteCode extends Memory {
     public int funcIfMi(int arg)
     {
         int value = peek(0);
- 
+        
         if (value < 0)
         {
             this.ip = arg;
