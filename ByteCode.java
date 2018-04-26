@@ -25,7 +25,17 @@ public class ByteCode extends Memory {
         switch (cmd) {
             case 0:
                 return funcExit(arg);
-            default:
+			case 1:
+				return funcSwap();
+			case 2:
+				return funcInpt();
+			case 3:
+				return funcNop();
+			case 16:
+				return funcPop();
+			case 32:
+				return funcAdd();
+			default:
                 return 0;
         }
     }
