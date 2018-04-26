@@ -35,6 +35,30 @@ public class ByteCode extends Memory {
 				return funcPop();
 			case 32:
 				return funcAdd();
+			case 33:
+				return funcSub();
+			case 34:
+				return funcMul();
+			case 35:
+				return funcDiv();
+			case 36:
+				return funcRem();
+			case 37:
+				return funcAnd();
+			case 38:
+				return funcOr();
+			case 144:
+				return funcIfEz(arg);
+			case 145:
+				return funcIfNz(arg);
+			case 146:
+				return funcIfMi(arg);
+			case 147:
+				return funcIfPl(arg);
+			case 208:
+				return funcPrint(arg);
+			case 224:
+				return funcDump(arg);
 			default:
                 return 0;
         }
