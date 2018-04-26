@@ -47,6 +47,26 @@ public class ByteCode extends Memory {
 				return funcAnd();
 			case 38:
 				return funcOr();
+			case 39:
+				return funcXOR();
+			case 48:
+				return funcNeg();
+			case 49:
+				return funcNot();
+			case 112:
+				return funcGoto(cmd);
+			case 128:
+				return funcIF1(arg,cmd);
+			case 129:
+				return funcIF1(arg,cmd);
+			case 130:
+				return funcIF1(arg,cmd);
+			case 131:
+				return funcIF1(arg,cmd);
+			case 132:
+				return funcIF1(arg,cmd);
+			case 133:
+				return funcIF1(arg,cmd);
 			case 144:
 				return funcIfEz(arg);
 			case 145:
@@ -252,7 +272,7 @@ public class ByteCode extends Memory {
        
         if (value == 0)
         {
-            this.ip = arg;
+            funcGoto(arg);
         }
        
         return 0;
@@ -263,7 +283,7 @@ public class ByteCode extends Memory {
  
         if (value != 0)
         {
-            this.ip = arg;
+            funcGoto(arg);
         }
  
         return 0;
@@ -274,7 +294,7 @@ public class ByteCode extends Memory {
         
         if (value < 0)
         {
-            this.ip = arg;
+            funcGoto(arg);
         }
  
         return 0;
@@ -285,7 +305,7 @@ public class ByteCode extends Memory {
  
         if (value >= 0)
         {
-            this.ip = arg;
+            funcGoto(arg);
         }
  
         return 0;
