@@ -52,6 +52,12 @@ public class Memory {
         //load instructions from an array of instructions into memory starting at address 0
         System.arraycopy(instr, 0, memory, 0, instr.length);
     }
+
+    public int peek(int offset)
+    {
+        if (sp + offset >= size) throw new IndexOutOfBoundsException();
+	return memory[sp + offset];
+    }
     
     
 }
