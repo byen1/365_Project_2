@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.*;
 
 public class VirtualMachine extends ByteCode {
-    
+	//Constructs a VirtualMachine object with 4096 bytes of memory    
     public VirtualMachine() {
         size = 1024;
         memory = new int[size];
@@ -19,13 +19,15 @@ public class VirtualMachine extends ByteCode {
         ip = 0;
     }
     
+	//Constructs a VirtualMachine object with user specified amount bytes of memory    
     public VirtualMachine(int sizeInBytes) {
         size = sizeInBytes/4;
         memory = new int[size];
         sp = size - 1;
         ip = 0;
     }
-    
+
+    //Reads throught bytecode file; Checks to make sure file starts with 0xfeedbeef; Inserts all commands into an ArrayList that is converted into an Array
     public void readFile(String filename) {
         DataInputStream r;
 		int fromFile, fileHeaderCheck;
@@ -63,7 +65,7 @@ public class VirtualMachine extends ByteCode {
         this.loadInstructions(instructions);        
     }
     
-    
+    //Runs the virtual machine
     public int run() {
         
         jump(0);
@@ -75,7 +77,8 @@ public class VirtualMachine extends ByteCode {
         }
         
     }
-    
+
+    //Major loop body of the virtual machine that calls Interpret() in ByteCode.java to interpret and run each command.
     public int execLoop() {
         int ipp = this.ip;
         while(interpret() != -1) {
@@ -88,6 +91,7 @@ public class VirtualMachine extends ByteCode {
         
     }
 
+	//Used to swap byte endianness because Java and C# don't like each other
 	public int swap (int value){
 		int b1 = (value >>  0) & 0xff;
 		int b2 = (value >>  8) & 0xff;
