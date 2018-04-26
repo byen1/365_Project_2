@@ -56,7 +56,7 @@ public class Memory {
     public int peek(int offset)
     {
         if (sp + offset >= size) throw new IndexOutOfBoundsException();
-	return memory[sp + offset];
+			return memory[sp + offset];
     }
     
     
