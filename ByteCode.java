@@ -84,13 +84,20 @@ public class ByteCode extends Memory {
 
 
 //End of functions Charlie and/or aday implemented
+//Start of Saporito's functions
 
+	/*
+		pops the left and right value off the stack and xor's them and push that value on the stack
+	*/
 	public int funcXOR(){
 
 		push(pop()^pop());
 		return 0;
 
 	}
+	/*
+		
+	*/
 	public int funcNeg(){
 		
 		push(pop()*-1);
@@ -162,7 +169,7 @@ public class ByteCode extends Memory {
 	}
 
 	
-
+//End of Saporito's functions
     
     /* Implement functions as ints here */
     /* Returning -1 ceases execution, generally return 0 */
