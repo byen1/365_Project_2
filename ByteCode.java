@@ -1,3 +1,12 @@
+/*
+*
+* CS365 Project 2 
+*
+* Contributors: Alex Teepe, Brandon Yen, Austin Saporito, Austin Day, and Charles Rizzo
+*
+* Entry point for jar file that creates a virtual machine to interpret byte code generated from project 1. 
+* Can be ran in Verbose mode with -v as second command line arg.
+*/
 public class ByteCode extends Memory {
     
     protected int exitCode = 0;
@@ -100,8 +109,9 @@ public class ByteCode extends Memory {
                     return 0;
         }
     }
-//Functions that Charlie and/or aday implemented    
-    public int funcExit(int arg) {
+
+    //Called to exit the program. A mask is used to extract the error code and set it.
+	public int funcExit(int arg) {
         
         int mask = 0xff;
         this.exitCode = arg & mask;
@@ -109,7 +119,7 @@ public class ByteCode extends Memory {
         return -1;
         
     }
-
+	//Swaps the topmost stack value with the penultimate value
 	public int funcSwap(){
 		if(this.sp ==1023){
 			return 0;

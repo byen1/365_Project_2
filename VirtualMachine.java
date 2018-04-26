@@ -1,3 +1,12 @@
+/*
+*
+* CS365 Project 2 
+*
+* Contributors: Alex Teepe, Brandon Yen, Austin Saporito, Austin Day, and Charles Rizzo
+*
+* Entry point for jar file that creates a virtual machine to interpret byte code generated from project 1. 
+* Can be ran in Verbose mode with -v as second command line arg.
+*/
 import java.io.*;
 import java.util.*;
 
